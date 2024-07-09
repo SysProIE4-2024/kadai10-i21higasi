@@ -27,7 +27,6 @@ int mysystem(char *command) {
   }else{
     //子プロセス
     execl("/bin/sh","sh","-c",command,NULL);
-    perror("/bin/sh");
     exit(127);
   }
 
@@ -39,6 +38,22 @@ int mysystem(char *command) {
 cc -Wall -std=c99 -o mysysmain mysysmain.c  mysystem.c
 % ./mysysmain
 使い方 : ./mysysmain コマンド文字列
+% ./mysysmain aaa
+mysystem:
+sh: aaa: command not found
+retval = 00007f00
+system:
+sh: aaa: command not found
+retval = 00007f00
+% ./mysysmain aaa bbb
+使い方 : ./mysysmain コマンド文字列
+% ./mysysmain "aaa bbb"
+mysystem:
+sh: aaa: command not found
+retval = 00007f00
+system:
+sh: aaa: command not found
+retval = 00007f00
 % ./mysysmain pwd    
 mysystem:
 /Users/higashiyuinin/OneDrive - 独立行政法人 国立高等専門学校機構/Syspro2/kadai10-i21higasi
@@ -76,6 +91,25 @@ total 616
 -rw-r--r--  1 higashiyuinin  staff     734  7  8 22:00 mysystem.c
 -rw-r--r--  1 higashiyuinin  staff      90  7  4 09:54 mysystem.h
 retval = 00000000
+% ./mysysmain "mkdir A"
+mysystem:
+retval = 00000000
+system:
+mkdir: A: File exists
+retval = 00000100
+% ./mysysmain "rmdir A"
+mysystem:
+retval = 00000000
+system:
+rmdir: A: No such file or directory
+retval = 00000100
+% ./mysysmain "rmdir A"
+mysystem:
+rmdir: A: No such file or directory
+retval = 00000100
+system:
+rmdir: A: No such file or directory
+retval = 00000100
 */
 
 
