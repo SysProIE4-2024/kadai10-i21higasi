@@ -103,12 +103,19 @@ retval = 00000000
 system:
 rmdir: A: No such file or directory
 retval = 00000100
-% ./mysysmain "rmdir A"
+% ./mysysmain rmdir  
 mysystem:
-rmdir: A: No such file or directory
+usage: rmdir [-p] directory ...
 retval = 00000100
 system:
-rmdir: A: No such file or directory
+usage: rmdir [-p] directory ...
+retval = 00000100
+% ./mysysmain "rmdir B" 
+mysystem:
+rmdir: B: No such file or directory
+retval = 00000100
+system:
+rmdir: B: No such file or directory
 retval = 00000100
 */
 
